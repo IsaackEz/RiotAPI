@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <link rel="stylesheet" href="../style.css" /> -->
+		<title>Riot API</title>
+	</head>
+	<style>
+		body {
+			color: bisque;
+			font-family: 'Courier New', Courier, monospace;
+			background: rgb(39, 39, 39);
+		}
+		.title {
+			color: rgb(0, 0, 0);
+			position: static;
+			text-align: center;
+			margin: auto;
+			padding-top: 6ch;
+			font-size: 80px;
+		}
+		.title-color {
+			text-align: center;
+			color: rgb(110, 0, 0);
+			letter-spacing: 2px;
+			font-size: 80px;
+			font-weight: bold;
+			font-family: 'Courier New', Courier, monospace;
+		}
+
+		.form-group {
+			position: static;
+			text-align: center;
+			margin: auto;
+		}
+		#search-bar {
+			margin: auto;
+			justify-content: center;
+			color: aqua;
+			background: rgb(80, 80, 80);
+		}
+		.search-text {
+			border: none;
+			border-radius: 10px;
+			outline: none;
+			background: none;
+			color: wheat;
+			height: 60px;
+			width: 700px;
+			font-size: 25px;
+			padding-left: 30px;
+		}
+
+		.container {
+			text-align: center;
+		}
+
+		.champions {
+			border: 3px solid rgb(95, 0, 0);
+			border-radius: 9px;
+			background: rgb(95, 0, 0);
+			padding: 15px 20px;
+
+			border-radius: 9px;
+			cursor: pointer;
+			font-size: 45px;
+			font-family: sans-serif;
+			transition: 0.4s;
+			margin: 18px;
+		}
+
+		.champions:focus {
+			outline: none;
+		}
+
+		.champions:active {
+			border: 3px solid rgb(95, 0, 0);
+			background: rgb(95, 0, 0);
+			transition: 0.1s;
+		}
+
+		.champions a {
+			color: rgb(214, 214, 214);
+			text-decoration: none;
+			font-weight: 750;
+		}
+		.summoner {
+			border: 3px solid rgb(95, 0, 0);
+			border-radius: 9px;
+			background: rgb(95, 0, 0);
+			padding: 15px 20px;
+
+			border-radius: 9px;
+			cursor: pointer;
+			font-size: 45px;
+			font-family: sans-serif;
+			transition: 0.4s;
+			margin: 18px;
+		}
+
+		.summoner:focus {
+			outline: none;
+		}
+
+		.summoner:active {
+			border: 3px solid rgb(95, 0, 0);
+			background: rgb(95, 0, 0);
+			transition: 0.1s;
+		}
+
+		.summoner a {
+			color: rgb(214, 214, 214);
+			text-decoration: none;
+			font-weight: 750;
+		}
+	</style>
+	<body>
+		<div>
+			<h1 class="title">RIOT <span class="title-color">API</span></h1>
+		</div>
+		<div class="container">
+			<button class="btn champions">
+				<a href="/riot/champions">Champion</a>
+			</button>
+			<button class="btn summoner">
+				<a href="/riot/summoner">Summoner</a>
+			</button>
+		</div>
+	</body>
+</html>
