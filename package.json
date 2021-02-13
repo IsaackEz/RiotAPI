@@ -1,0 +1,26 @@
+{
+	"name": "riotapi",
+	"version": "1.0.0",
+	"description": "Using RiotAPI",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon start"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IsaackEz/RiotAPI.git"
+	},
+	"author": "IsaacEspinoza",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/IsaackEz/RiotAPI/issues"
+	},
+	"homepage": "https://github.com/IsaackEz/RiotAPI#readme",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"express": "^4.17.1",
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.7"
+	}
+}
