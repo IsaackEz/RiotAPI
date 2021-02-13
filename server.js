@@ -46,7 +46,7 @@ app.get('/riot/summoner', (req, res) => {
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		'?api_key=RGAPI-30300e07-3372-42cb-83df-6aaffd5accb0';
+		'?api_key=RGAPI************************';
 
 	axios
 		.get(URLs)
