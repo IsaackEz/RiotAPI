@@ -24,8 +24,39 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.get('/riot/', (req, res) => {
+	let nameID = req.query.search;
+	const KEY = '?api_key=RGAPI-58b64455-2b24-4d4b-98ef-d344025aa12f';
+	const URLsi =
+		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
+	const URLext = '.png';
+	const URLs =
+		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
+		nameID +
+		KEY;
+	if (nameID == '') {
+		res.render('index.htm');
+	}
+	axios
+		.get(URLs)
+		.then(function (response) {
+			sumIcon = response.data.profileIconId;
+			sumLevel = response.data.summonerLevel;
+			res.render('summoner.htm', {
+				icon: URLsi,
+				iconExt: URLext,
+				name: nameID,
+				sumIcon: sumIcon,
+				sumLevel: sumLevel,
+			});
+		})
+		.catch(function (error) {
+			res.send(error);
+		});
+});
+
 app.get('/riot/champions', (req, res) => {
-	let nameID = req.query.cs;
+	let nameID = req.query.search;
 	const URL =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/' +
 		nameID +
@@ -38,7 +69,7 @@ app.get('/riot/champions', (req, res) => {
 });
 
 app.get('/riot/summoner', (req, res) => {
-	let nameID = req.query.cs;
+	let nameID = req.query.search;
 
 	const URLsi =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
@@ -62,7 +93,7 @@ app.get('/riot/summoner', (req, res) => {
 			});
 		})
 		.catch(function (error) {
-			res.send(error);
+			alert('Please type a summoner to search');
 		});
 });
 
