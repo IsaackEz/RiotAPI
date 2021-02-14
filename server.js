@@ -6,7 +6,7 @@ const { response } = require('express');
 const router = express.Router();
 const path = require('path');
 const { request } = require('https');
-
+const APIKEY = require('./config.js');
 //Using packages
 const app = express();
 
@@ -26,14 +26,13 @@ app.get('/', (req, res) => {
 
 app.get('/riot/', (req, res) => {
 	let nameID = req.query.search;
-	const KEY = '?api_key=RGAPI-58b64455-2b24-4d4b-98ef-d344025aa12f';
 	const URLsi =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
 	const URLext = '.png';
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		KEY;
+		APIKEY.APIKEY;
 	if (nameID == '') {
 		res.render('index.htm');
 	}
@@ -77,7 +76,7 @@ app.get('/riot/summoner', (req, res) => {
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		'?api_key={APIKEY}';
+		APIKEY.APIKEY;
 
 	axios
 		.get(URLs)
