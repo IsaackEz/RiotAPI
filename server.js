@@ -34,7 +34,17 @@ app.get('/riot/champions', (req, res) => {
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/champion/' +
 		nameID +
 		'.png';
-	res.render('champions.htm', { icon: URLi, name: nameID });
+
+	axios
+		.get(URL)
+		.then(function (response) {
+			image = response.data.data;
+			console.log(image);
+			res.render('champions.htm', { icon: URLi, name: nameID });
+		})
+		.catch(function (error) {
+			res.send(error);
+		});
 });
 
 app.get('/riot/summoner', (req, res) => {
@@ -46,7 +56,7 @@ app.get('/riot/summoner', (req, res) => {
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		'?api_key=RGAPI-30300e07-3372-42cb-83df-6aaffd5accb0';
+		'?api_key=RGAPI-************';
 
 	axios
 		.get(URLs)
@@ -62,12 +72,46 @@ app.get('/riot/summoner', (req, res) => {
 			});
 		})
 		.catch(function (error) {
+			res.send(error);
+		});
+});
+
+app.get('/riot/champions/:id', (req, res) => {
+	const URL = `http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/${req.params.id}.json`;
+
+	axios
+		.get(URL)
+		.then(function (response) {
+			console.log(response.data);
+			res.send(response.data);
+		})
+		.catch(function (error) {
 			console.log(error);
 			res.send(error);
 		});
 });
 
+app.get('/riot/summoner/:name', (req, res) => {
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key=RGAPI-5cf3167e-a525-4432-8506-706085422dad`;
+
+	axios
+		.get(URL)
+		.then(function (response) {
+			console.log(response.data);
+			res.send(response.data);
+		})
+		.catch(function (error) {
+			console.log(error);
+			res.send(error);
+		});
+});
 //POST Routes
+app.post('/post', (req, res) => {
+	aux = req.body.name;
+	aux1 = req.body.id;
+	//Answer to client
+	res.send(`Hello ${aux}\n Your id is: ${aux1}`);
+});
 
 //Listen Server
 app.listen(3000, () => {
