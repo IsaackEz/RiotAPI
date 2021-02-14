@@ -92,7 +92,7 @@ app.get('/riot/champions/:id', (req, res) => {
 });
 
 app.get('/riot/summoner/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key=RGAPI-5cf3167e-a525-4432-8506-706085422dad`;
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key=RGAPI-5*********************`;
 
 	axios
 		.get(URL)
