@@ -34,17 +34,7 @@ app.get('/riot/champions', (req, res) => {
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/champion/' +
 		nameID +
 		'.png';
-
-	axios
-		.get(URL)
-		.then(function (response) {
-			image = response.data.data;
-			console.log(image);
-			res.render('champions.htm', { icon: URLi, name: nameID });
-		})
-		.catch(function (error) {
-			res.send(error);
-		});
+	res.render('champions.htm', { icon: URLi, name: nameID });
 });
 
 app.get('/riot/summoner', (req, res) => {
@@ -56,7 +46,7 @@ app.get('/riot/summoner', (req, res) => {
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		'?api_key=RGAPI-************';
+		'?api_key={APIKEY}';
 
 	axios
 		.get(URLs)
@@ -92,7 +82,7 @@ app.get('/riot/champions/:id', (req, res) => {
 });
 
 app.get('/riot/summoner/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key=RGAPI-5*********************`;
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key={APIKEY}`;
 
 	axios
 		.get(URL)
