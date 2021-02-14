@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 app.get('/riot/', (req, res) => {
 	let nameID = req.query.search;
-	const KEY = '?api_key=RGAPI-58b64455-2b24-4d4b-98ef-d344025aa12f';
+	const KEY = '{KEY};
 	const URLsi =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
 	const URLext = '.png';
