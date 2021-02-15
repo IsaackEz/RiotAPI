@@ -24,57 +24,81 @@ app.get('/', (req, res) => {
 	});
 });
 
-home();
-
-function home() {
-	app.get('/riot/', (req, res) => {
-		let nameID = req.query.search;
-		const URLsi =
-			'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
-		const URLext = '.png';
-		const URLs =
-			'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
-			nameID +
-			APIKEY.APIKEY;
-		if (nameID == '') {
-			res.render('index.htm');
-		}
+app.get('/riot/', (req, res) => {
+	let nameID = req.query.search;
+	const URLsi =
+		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
+	const URLext = '.png';
+	const URLs =
+		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
+		nameID +
+		APIKEY.APIKEY;
+	if (nameID == undefined || nameID == '') {
+		res.render('index.htm');
+	} else {
 		axios
 			.get(URLs)
-			.then(function (response) {
+			.then((response) => {
 				sumIcon = response.data.profileIconId;
 				sumLevel = response.data.summonerLevel;
 				accID = response.data.accountId;
-				URLmatch =
+				URLListMatch =
 					'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
 					accID +
 					APIKEY.APIKEY;
+
 				axios
-					.get(URLmatch)
-					.then(function (response) {
-						role = response.data.matches[1].lane;
-						res.render('summoner.htm', {
-							icon: URLsi,
-							iconExt: URLext,
-							name: nameID,
-							sumIcon: sumIcon,
-							sumLevel: sumLevel,
-							accountID: accID,
-							role: role,
-						});
+					.get(URLListMatch)
+					.then((response) => {
+						role = response.data.matches[0].lane;
+						matchId = response.data.matches[0].gameId;
+						URLmatch =
+							'https://la1.api.riotgames.com/lol/match/v4/matches/' +
+							matchId +
+							APIKEY.APIKEY;
+						axios
+							.get(URLmatch)
+							.then((response) => {
+								mapID = response.data.mapId;
+								URLmap =
+									'http://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map' +
+									mapID +
+									'.png';
+								res.render('summoner.htm', {
+									icon: URLsi,
+									iconExt: URLext,
+									name: nameID,
+									sumIcon: sumIcon,
+									sumLevel: sumLevel,
+									accountID: accID,
+									role: role,
+									map: mapID,
+									mapIcon: URLmap,
+								});
+							})
+							.catch((error) => {
+								res.send(error);
+								console.log(error);
+							});
 					})
-					.catch(function (error) {
+					.catch((error) => {
 						res.send(error);
+						console.error(error);
 					});
 			})
-			.catch(function (error) {
+			.catch((error) => {
 				res.send(error);
+				console.error(error);
 			});
-	});
-}
+	}
+});
 
 app.get('/riot/champions', (req, res) => {
-	let nameID = req.query.search;
+	res.render('champions.htm');
+});
+
+app.get('/riot/champion', (req, res) => {
+	let nameID = req.query.searchch;
 	const URL =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/' +
 		nameID +
@@ -83,36 +107,27 @@ app.get('/riot/champions', (req, res) => {
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/champion/' +
 		nameID +
 		'.png';
-	res.render('champions.htm', { icon: URLi, name: nameID });
-});
-
-app.get('/riot/summoner', (req, res) => {
-	let nameID = req.query.search;
-
-	const URLsi =
-		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
-	const URLext = '.png';
-	const URLs =
-		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
-		nameID +
-		APIKEY.APIKEY;
-
-	axios
-		.get(URLs)
-		.then(function (response) {
-			sumIcon = response.data.profileIconId;
-			sumLevel = response.data.summonerLevel;
-			res.render('summoner.htm', {
-				icon: URLsi,
-				iconExt: URLext,
-				name: nameID,
-				sumIcon: sumIcon,
-				sumLevel: sumLevel,
+	if (nameID == undefined || nameID == '') {
+		res.render('champions.htm');
+	} else {
+		axios
+			.all([axios.get(URL)])
+			.then((response) => {
+				titleCh = response[0].data.data[nameID].title;
+				loreCh = response[0].data.data[nameID].lore;
+				tagCh = response[0].data.data[nameID].tags;
+				res.render('champion.htm', {
+					icon: URLi,
+					name: nameID,
+					title: titleCh,
+					lore: loreCh,
+					tags: tagCh,
+				});
+			})
+			.catch((error) => {
+				res.send(error);
 			});
-		})
-		.catch(function (error) {
-			alert('Please type a summoner to search');
-		});
+	}
 });
 
 app.get('/riot/champions/:id', (req, res) => {
@@ -120,13 +135,13 @@ app.get('/riot/champions/:id', (req, res) => {
 
 	axios
 		.get(URL)
-		.then(function (response) {
+		.then((response) => {
 			console.log(response.data);
 			res.send(response.data);
 		})
-		.catch(function (error) {
-			console.log(error);
+		.catch((error) => {
 			res.send(error);
+			console.error(error);
 		});
 });
 
@@ -135,13 +150,13 @@ app.get('/riot/summoner/:name', (req, res) => {
 
 	axios
 		.get(URL)
-		.then(function (response) {
+		.then((response) => {
 			console.log(response.data);
 			res.send(response.data);
 		})
-		.catch(function (error) {
-			console.log(error);
+		.catch((error) => {
 			res.send(error);
+			console.error(error);
 		});
 });
 //POST Routes

@@ -95,8 +95,11 @@
 			text-align: center;
 		}
 
+		.container-match{
+			margin-top: 40px;
+		}
       body {
-			color: bisque;
+			color: rgb(218, 218, 218);
 			font-family: sans-serif;
 			background: rgb(39, 39, 39);
 		}
@@ -104,7 +107,8 @@
 		body h1 {
 			text-align: center;
 			font-family: 'Courier New', Courier, monospace;
-			margin-top: 25px;
+			margin-top: 5px;
+         margin-bottom: 5px;
 			font-size: 4.2rem;
 			padding-left: 5%;
 			padding-right: 5%;
@@ -115,7 +119,8 @@
          font-family: 'Courier New', Courier, monospace;
          font-size: 30px;
          color: rgb(255, 255, 255);
-         
+         margin-top: 5px;
+         margin-bottom: 5px;         
       }
       
       body h3 {
@@ -132,8 +137,9 @@
          color: rgb(255, 255, 255);
       }
 		.img{
-			width: 6%;
-			height: 6%;
+			width: 15%;
+			height: 15%;
+			margin-top: 10px;
 		}
 	</style>
 	<body>
@@ -160,12 +166,14 @@
 			</div>
 		</form>
 		<div class="container">			
-		<h1><img src="<%= icon+sumIcon+iconExt %> " class="img"/><%= name %></h1>
-      <h2>Summoner Level: <%= sumLevel %> </h2>
-		</div>		
-		<div class="container">
-			<h2>Match History</h2>
-			<h3><%= role %></h3>
+			<img src="<%= icon+sumIcon+iconExt %> " class="img"/>
+			<h1><%= name %></h1>
+			<h2>Summoner Level: <%= sumLevel %> </h2>				
+			<div class="container-match">
+				<h2>Match History</h2>
+				<h3><%= role %></h3>
+			</div>	
+			<img src="<%= mapIcon %> " class="img"/>
 		</div>
 	</body>
 </html>
