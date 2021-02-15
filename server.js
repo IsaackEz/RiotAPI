@@ -24,35 +24,54 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.get('/riot/', (req, res) => {
-	let nameID = req.query.search;
-	const URLsi =
-		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
-	const URLext = '.png';
-	const URLs =
-		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
-		nameID +
-		APIKEY.APIKEY;
-	if (nameID == '') {
-		res.render('index.htm');
-	}
-	axios
-		.get(URLs)
-		.then(function (response) {
-			sumIcon = response.data.profileIconId;
-			sumLevel = response.data.summonerLevel;
-			res.render('summoner.htm', {
-				icon: URLsi,
-				iconExt: URLext,
-				name: nameID,
-				sumIcon: sumIcon,
-				sumLevel: sumLevel,
+home();
+
+function home() {
+	app.get('/riot/', (req, res) => {
+		let nameID = req.query.search;
+		const URLsi =
+			'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
+		const URLext = '.png';
+		const URLs =
+			'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
+			nameID +
+			APIKEY.APIKEY;
+		if (nameID == '') {
+			res.render('index.htm');
+		}
+		axios
+			.get(URLs)
+			.then(function (response) {
+				sumIcon = response.data.profileIconId;
+				sumLevel = response.data.summonerLevel;
+				accID = response.data.accountId;
+				URLmatch =
+					'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
+					accID +
+					APIKEY.APIKEY;
+				axios
+					.get(URLmatch)
+					.then(function (response) {
+						role = response.data.matches[1].lane;
+						res.render('summoner.htm', {
+							icon: URLsi,
+							iconExt: URLext,
+							name: nameID,
+							sumIcon: sumIcon,
+							sumLevel: sumLevel,
+							accountID: accID,
+							role: role,
+						});
+					})
+					.catch(function (error) {
+						res.send(error);
+					});
+			})
+			.catch(function (error) {
+				res.send(error);
 			});
-		})
-		.catch(function (error) {
-			res.send(error);
-		});
-});
+	});
+}
 
 app.get('/riot/champions', (req, res) => {
 	let nameID = req.query.search;
