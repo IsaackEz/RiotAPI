@@ -6,7 +6,8 @@ const { response } = require('express');
 const router = express.Router();
 const path = require('path');
 const { request } = require('https');
-const APIKEY = require('./config.js');
+require('dotenv').config();
+
 //Using packages
 const app = express();
 
@@ -35,7 +36,7 @@ app.get('/riot/', (req, res) => {
 	const URLs =
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
-		APIKEY.APIKEY;
+		process.env.API_KEY;
 	if (nameID == undefined || nameID == '') {
 		res.render('index.htm');
 	} else {
@@ -48,7 +49,7 @@ app.get('/riot/', (req, res) => {
 				URLListMatch =
 					'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
 					accID +
-					APIKEY.APIKEY;
+					process.env.API_KEY;
 
 				axios
 					.get(URLListMatch)
@@ -58,7 +59,7 @@ app.get('/riot/', (req, res) => {
 						URLmatch =
 							'https://la1.api.riotgames.com/lol/match/v4/matches/' +
 							matchId +
-							APIKEY.APIKEY;
+							process.env.API_KEY;
 						axios
 							.get(URLmatch)
 							.then((response) => {
@@ -139,27 +140,23 @@ app.get('/riot/champions/:id', (req, res) => {
 	axios
 		.get(URL)
 		.then((response) => {
-			console.log(response.data);
 			res.send(response.data);
 		})
 		.catch((error) => {
 			res.send(error);
-			console.error(error);
 		});
 });
 
 app.get('/riot/summoner/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}?api_key={APIKEY}`;
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
 
 	axios
 		.get(URL)
 		.then((response) => {
-			console.log(response.data);
 			res.send(response.data);
 		})
 		.catch((error) => {
 			res.send(error);
-			console.error(error);
 		});
 });
 //POST Routes

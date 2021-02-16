@@ -5,11 +5,12 @@ Fetching data from Riot's API
 ## Requirements
 
 -  Axios `npm i axios`
--  Morgan `npm i morgan`
+-  dotenv `npm i dotenv`
+-  ejs `npm i ejs`
 -  Express `npm i express`
+-  Morgan `npm i morgan`
 -  Nodemon `npm i nodemon`
--  efs `npm i efs`
 
--  Create a file named `config.js` and add `exports.APIKEY = '?api_key={YOURAPIKEY}';`
+-  Rename the file ".env_sample" to ".env" and put your APIKEY in the placeholder.
 
 ## Documentation
