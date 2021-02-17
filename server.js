@@ -2,8 +2,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const axios = require('axios');
-const { response } = require('express');
-const router = express.Router();
 const path = require('path');
 const { request } = require('https');
 require('dotenv').config();
@@ -159,14 +157,96 @@ app.get('/riot/summoner/:name', (req, res) => {
 			res.send(error);
 		});
 });
+
 //POST Routes
-app.post('/post', (req, res) => {
-	aux = req.body.name;
-	aux1 = req.body.id;
-	//Answer to client
-	res.send(`Hello ${aux}\n Your id is: ${aux1}`);
+app.get('/tournament/provider', (req, res) => {
+	res.render('provider.htm');
 });
 
+app.get('/tournament/id', (req, res) => {
+	let impRegion = req.query.regionsearch;
+	let impURL = req.query.urlsearch;
+	const URLTour =
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/providers' +
+		process.env.API_KEY;
+	axios
+		.post(URLTour, {
+			region: impRegion,
+			url: impURL,
+		})
+		.then((response) => {
+			providerID = response.data;
+			res.render('tournamentid.htm', {
+				reg: impRegion,
+				urlP: impURL,
+				provID: providerID,
+			});
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/tournament/codes', (req, res) => {
+	let impName = req.query.namesearch;
+	let impProv = req.query.provsearch;
+	const URLTour =
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/tournaments' +
+		process.env.API_KEY;
+	axios
+		.post(URLTour, {
+			name: impName,
+			providerId: impProv,
+		})
+		.then((response) => {
+			tournamentID = response.data;
+			res.render('codes.htm', {
+				nameID: impName,
+				provID: impProv,
+				tourID: tournamentID,
+			});
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/tournament/', (req, res) => {
+	// let tourImp = req.query.toursearch;
+	let impSum = req.query.sumsearch;
+	let impMap = req.query.mapsearch;
+	let impMeta = req.query.metasearch;
+	let impPick = req.query.picksearch;
+	let impSpec = req.query.specsearch;
+	let impTeam = req.query.teamsearch;
+	const URLTour =
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?tournamentId=5446' +
+		process.env.API_KEY;
+	axios
+		.post(URLTour, {
+			allowedSummonerIds: impSum,
+			mapType: impMap,
+			metadata: impMeta,
+			pickType: impPick,
+			spectatorType: impSpec,
+			teamSize: impTeam,
+		})
+		.then((response) => {
+			codes = response.data;
+			res.render('tournament.htm', {
+				sumID: impSum,
+				map: impMap,
+				meta: impMeta,
+				pick: impPick,
+				spec: impSpec,
+				team: impTeam,
+				code: codes,
+			});
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
 //Listen Server
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
