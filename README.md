@@ -4,12 +4,8 @@ Fetching data from Riot's API
 
 ## Requirements
 
--  Axios `npm i axios`
--  dotenv `npm i dotenv`
--  ejs `npm i ejs`
--  Express `npm i express`
--  Morgan `npm i morgan`
--  Nodemon `npm i nodemon`
+-  Node.js
+-  Clone the repository and then run `npm install` to install all the dependencies.
 
 -  Rename the file ".env_sample" to ".env" and put your APIKEY in the placeholder.
 
