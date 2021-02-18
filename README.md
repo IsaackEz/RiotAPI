@@ -7,6 +7,6 @@ Fetching data from Riot's API
 -  Node.js
 -  Clone the repository and then run `npm install` to install all the dependencies.
 
--  Rename the file ".env_sample" to ".env" and put your APIKEY in the placeholder.
+-  Rename the file ".env_sample" to ".env" and put your APIKEYs in the placeholder.
 
 ## Documentation
