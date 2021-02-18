@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const axios = require('axios');
 const path = require('path');
-const { request } = require('https');
 require('dotenv').config();
 
 //Using packages
@@ -26,8 +25,22 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.get('/riot/', (req, res) => {
+app.get('/riot', (req, res) => {
 	let nameID = req.query.search;
+	let partID = [];
+	let sumHist = [];
+	let iconHist = [];
+	let partKills = [];
+	let partDeaths = [];
+	let partAssists = [];
+	let partItem0 = [];
+	let partItem1 = [];
+	let partItem2 = [];
+	let partItem3 = [];
+	let partItem4 = [];
+	let partItem5 = [];
+	let partItem6 = [];
+
 	const URLsi =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
 	const URLext = '.png';
@@ -62,10 +75,34 @@ app.get('/riot/', (req, res) => {
 							.get(URLmatch)
 							.then((response) => {
 								mapID = response.data.mapId;
+								duration = response.data.gameDuration;
+								minutes = Math.floor(duration / 60);
+								seconds = duration % 60;
+								partIdent = response.data.participantIdentities;
+								for (let i = 0; i < partIdent.length; i++) {
+									partID.push(partIdent[i].participantId);
+									sumHist.push(partIdent[i].player.summonerName);
+									iconHist.push(partIdent[i].player.profileIcon);
+								}
+								part = response.data.participants;
+								for (let i = 0; i < part.length; i++) {
+									partKills.push(part[i].stats.kills);
+									partDeaths.push(part[i].stats.deaths);
+									partAssists.push(part[i].stats.assists);
+									partItem0.push(part[i].stats.item0);
+									partItem1.push(part[i].stats.item1);
+									partItem2.push(part[i].stats.item2);
+									partItem3.push(part[i].stats.item3);
+									partItem4.push(part[i].stats.item4);
+									partItem5.push(part[i].stats.item5);
+									partItem6.push(part[i].stats.item6);
+								}
 								URLmap =
 									'http://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map' +
 									mapID +
 									'.png';
+								URLitem =
+									'http://ddragon.leagueoflegends.com/cdn/11.4.1/img/item/';
 								res.render('summoner.htm', {
 									icon: URLsi,
 									iconExt: URLext,
@@ -76,21 +113,34 @@ app.get('/riot/', (req, res) => {
 									role: role,
 									map: mapID,
 									mapIcon: URLmap,
+									min: minutes,
+									sec: seconds,
+									participantID: partID,
+									summonerName: sumHist,
+									profIcon: iconHist,
+									URLsi: URLsi,
+									kills: partKills,
+									deaths: partDeaths,
+									assists: partAssists,
+									item0: partItem0,
+									item1: partItem1,
+									item2: partItem2,
+									item3: partItem3,
+									item4: partItem4,
+									item5: partItem5,
+									item6: partItem6,
 								});
 							})
 							.catch((error) => {
 								res.send(error);
-								console.log(error);
 							});
 					})
 					.catch((error) => {
 						res.send(error);
-						console.error(error);
 					});
 			})
 			.catch((error) => {
 				res.send(error);
-				console.error(error);
 			});
 	}
 });
@@ -132,45 +182,18 @@ app.get('/riot/champion', (req, res) => {
 	}
 });
 
-app.get('/riot/champions/:id', (req, res) => {
-	const URL = `http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/${req.params.id}.json`;
-
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
-
-app.get('/riot/summoner/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
-
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
-
-//POST Routes
-app.get('/tournament/provider', (req, res) => {
+app.get('/riot/tournament/provider', (req, res) => {
 	res.render('provider.htm');
 });
 
-app.get('/tournament/id', (req, res) => {
+app.get('/riot/tournament/id', (req, res) => {
 	let impRegion = req.query.regionsearch;
 	let impURL = req.query.urlsearch;
-	const URLTour =
+	const URLProv =
 		'https://americas.api.riotgames.com/lol/tournament-stub/v4/providers' +
 		process.env.API_KEY;
 	axios
-		.post(URLTour, {
+		.post(URLProv, {
 			region: impRegion,
 			url: impURL,
 		})
@@ -187,7 +210,7 @@ app.get('/tournament/id', (req, res) => {
 		});
 });
 
-app.get('/tournament/codes', (req, res) => {
+app.get('/riot/tournament/codes', (req, res) => {
 	let impName = req.query.namesearch;
 	let impProv = req.query.provsearch;
 	const URLTour =
@@ -211,7 +234,8 @@ app.get('/tournament/codes', (req, res) => {
 		});
 });
 
-app.get('/tournament/', (req, res) => {
+//TODO get an array from an input to post
+app.get('/riot/tournament/', (req, res) => {
 	// let tourImp = req.query.toursearch;
 	let impSum = req.query.sumsearch;
 	let impMap = req.query.mapsearch;
@@ -220,8 +244,8 @@ app.get('/tournament/', (req, res) => {
 	let impSpec = req.query.specsearch;
 	let impTeam = req.query.teamsearch;
 	const URLTour =
-		'https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?tournamentId=5446' +
-		process.env.API_KEY;
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?tournamentId=56' +
+		process.env.CODES_API_KEY;
 	axios
 		.post(URLTour, {
 			allowedSummonerIds: impSum,
@@ -247,6 +271,155 @@ app.get('/tournament/', (req, res) => {
 			res.send(error);
 		});
 });
+
+//GET HW
+app.get('/champions', (req, res) => {
+	const URL =
+		'http://ddragon.leagueoflegends.com/cdn/11.4.1/data/en_US/champion.json';
+
+	axios
+		.get(URL)
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/champions/rotation', (req, res) => {
+	const URL =
+		'https://la1.api.riotgames.com/lol/platform/v3/champion-rotations' +
+		process.env.API_KEY;
+
+	axios
+		.get(URL)
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/champions/:id', (req, res) => {
+	const URL = `http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/${req.params.id}.json`;
+
+	axios
+		.get(URL)
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/summoner/:name', (req, res) => {
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
+
+	axios
+		.get(URL)
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.get('/matchlist/:name', (req, res) => {
+	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
+
+	axios
+		.get(URL)
+		.then((response) => {
+			accountID = response.data.accountId;
+			matchListURL =
+				'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
+				accountID +
+				process.env.API_KEY;
+			axios
+				.get(matchListURL)
+				.then((response) => {
+					res.send(response.data);
+				})
+				.catch((error) => {
+					res.send(error);
+				});
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+//POST HW
+app.post('/provider', (req, res) => {
+	regionImp = req.body.region;
+	URLp = req.body.url;
+	const URLProv =
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/providers' +
+		process.env.API_KEY;
+	axios
+		.post(URLProv, {
+			region: regionImp,
+			url: URLp,
+		})
+		.then((response) => {
+			providerID = response.data;
+			res.send(`Provider ID: ${providerID}`);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.post('/tourid', (req, res) => {
+	nameImp = req.body.name;
+	providerImp = req.body.providerId;
+	const URLTour =
+		'https://americas.api.riotgames.com/lol/tournament-stub/v4/tournaments' +
+		process.env.API_KEY;
+	axios
+		.post(URLTour, {
+			name: nameImp,
+			providerId: providerImp,
+		})
+		.then((response) => {
+			tourID = response.data;
+			res.send(`Tournament ID: ${tourID}`);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.post('/codes/:count/:tourID', (req, res) => {
+	sumImp = req.body.allowedSummonerIds;
+	mapImp = req.body.mapType;
+	metaImp = req.body.metadata;
+	pickImp = req.body.pickType;
+	specImp = req.body.spectatorType;
+	teamImp = req.body.teamSize;
+	const URLCodes = `https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?count=${req.params.count}&tournamentId=${req.params.tourID}${process.env.CODES_API_KEY}`;
+	axios
+		.post(URLCodes, {
+			allowedSummonerIds: sumImp,
+			mapType: mapImp,
+			metadata: metaImp,
+			pickType: pickImp,
+			spectatorType: specImp,
+			teamSize: teamImp,
+		})
+		.then((response) => {
+			codesID = response.data;
+			res.send(`Codes: \n ${codesID}`);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
 //Listen Server
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);

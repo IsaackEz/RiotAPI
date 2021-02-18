@@ -137,9 +137,29 @@
          color: rgb(255, 255, 255);
       }
 		.img{
-			width: 15%;
-			height: 15%;
-			margin-top: 10px;
+			width: 38px;
+			height: 38px;
+		}
+
+		#table,
+		th,
+		td {
+			margin: auto;
+			padding: 10px;
+			border-collapse: collapse;
+		}
+		tbody {
+			color: rgb(255, 247, 235);
+			background-color: rgb(49, 49, 49);
+		}
+		.prof-icon{
+			width: 38px;
+			height: 38px;
+			padding: 0%;
+		}
+		.item{
+			width: 28px;
+			height: 28px;
 		}
 	</style>
 	<body>
@@ -170,10 +190,193 @@
 			<h1><%= name %></h1>
 			<h2>Summoner Level: <%= sumLevel %> </h2>				
 			<div class="container-match">
-				<h2>Match History</h2>
-				<h3><%= role %></h3>
-			</div>	
-			<img src="<%= mapIcon %> " class="img"/>
+				<table id="table">
+					<thead>
+						<tr>
+							<th colspan="9">Match History </th>
+						</tr>
+						
+					</thead>
+					<body>
+						<th colspan="9"><%= `Duration: ${min}:${sec}` %></th></th></tr>
+						<tr>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[0]+'.png' %>"/> </td>
+							<td><%= summonerName[0] %> </td>
+							<td><%= kills[0] + '/' + deaths[0] + '/' + assists[0]%> </td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[0]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[0]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[0]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[0]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[0]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[0]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[0]+'.png' %>"/>
+								</div>
+							</td>
+							<td></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[5]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[5]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[5]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[5]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[5]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[5]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[5]+'.png' %>"/>
+								</div>
+							</td>
+							<td><%= kills[5] + '/' + deaths[5] + '/' + assists[5]%></td>
+							<td><%= summonerName[5] %> </td>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[5]+'.png' %>"/> </td>													
+						</tr>
+						<tr>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[1]+'.png' %>"/> </td>
+							<td><%= summonerName[1] %> </td>
+							<td><%= kills[1] + '/' + deaths[1] + '/' + assists[1]%></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[1]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[1]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[1]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[1]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[1]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[1]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[1]+'.png' %>"/>
+								</div>
+							</td>
+							<td></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[6]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[6]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[6]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[6]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[6]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[6]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[6]+'.png' %>"/>
+								</div>
+							</td>
+							<td><%= kills[6] + '/' + deaths[6] + '/' + assists[6]%></td>
+							<td><%= summonerName[6] %> </td>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[6]+'.png' %>"/> </td>						
+						</tr>
+						<tr>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[2]+'.png' %>"/> </td>
+							<td><%= summonerName[2] %> </td>
+							<td><%= kills[2] + '/' + deaths[2] + '/' + assists[2]%></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[2]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[2]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[2]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[2]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[2]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[2]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[2]+'.png' %>"/>
+								</div>
+							</td>
+							<td></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[7]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[7]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[7]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[7]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[7]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[7]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[7]+'.png' %>"/>
+								</div>
+							</td>
+							<td><%= kills[7] + '/' + deaths[7] + '/' + assists[7]%></td>
+							<td><%= summonerName[7] %> </td>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[7]+'.png' %>"/> </td>						
+						</tr>
+						<tr>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[3]+'.png' %>"/> </td>
+							<td><%= summonerName[3] %> </td>
+							<td><%=  kills[3] + '/' + deaths[3] + '/' + assists[3]%></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[3]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[3]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[3]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[3]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[3]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[3]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[3]+'.png' %>"/>
+								</div>
+							</td>
+							<td></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[8]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[8]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[8]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[8]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[8]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[8]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[8]+'.png' %>"/>
+								</div>
+							</td>
+							<td><%= kills[8] + '/' + deaths[8] + '/' + assists[8]%></td>
+							<td><%= summonerName[8] %> </td>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[8]+'.png' %>"/> </td>						
+						</tr>
+						<tr>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[4]+'.png' %>"/> </td>
+							<td><%= summonerName[4] %> </td>
+							<td><%= kills[4] + '/' + deaths[4] + '/' + assists[4]%></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[4]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[4]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[4]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[4]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[4]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[4]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[4]+'.png' %>"/>
+								</div>
+							</td>
+							<td></td>
+							<td>
+								<div>
+									<img class="item" src="<%= URLitem+item0[9]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item1[9]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item2[9]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item3[9]+'.png' %>"/>
+								</div>
+								<div>
+									<img class="item" src="<%= URLitem+item4[9]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item5[9]+'.png' %>"/>
+									<img class="item" src="<%= URLitem+item6[9]+'.png' %>"/>
+								</div>
+							</td>
+							<td><%= kills[9] + '/' + deaths[9] + '/' + assists[9]%></td>
+							<td><%= summonerName[9] %> </td>
+							<td><img class="prof-icon" src="<%= URLsi+profIcon[9]+'.png' %>"/> </td>						
+						</tr>
+					</body>
+				</table>
+			</div>				
 		</div>
 	</body>
 </html>
