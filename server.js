@@ -132,14 +132,17 @@ app.get('/riot', (req, res) => {
 								});
 							})
 							.catch((error) => {
+								res.render('error.htm');
 								res.send(error);
 							});
 					})
 					.catch((error) => {
+						res.render('error.htm');
 						res.send(error);
 					});
 			})
 			.catch((error) => {
+				res.render('error.htm');
 				res.send(error);
 			});
 	}
@@ -177,6 +180,7 @@ app.get('/riot/champion', (req, res) => {
 				});
 			})
 			.catch((error) => {
+				res.render('errorch.htm');
 				res.send(error);
 			});
 	}
@@ -206,6 +210,7 @@ app.get('/riot/tournament/id', (req, res) => {
 			});
 		})
 		.catch((error) => {
+			res.render('error.htm');
 			res.send(error);
 		});
 });
@@ -230,6 +235,7 @@ app.get('/riot/tournament/codes', (req, res) => {
 			});
 		})
 		.catch((error) => {
+			res.render('error.htm');
 			res.send(error);
 		});
 });
@@ -268,188 +274,192 @@ app.get('/riot/tournament/', (req, res) => {
 			});
 		})
 		.catch((error) => {
+			res.render('error.htm');
 			res.send(error);
 		});
 });
 
-//GET HW
-app.get('/champions', (req, res) => {
-	const URL =
-		'http://ddragon.leagueoflegends.com/cdn/11.4.1/data/en_US/champion.json';
+homework();
+function homework() {
+	//GET HW
+	app.get('/champions', (req, res) => {
+		const URL =
+			'http://ddragon.leagueoflegends.com/cdn/11.4.1/data/en_US/champion.json';
 
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+		axios
+			.get(URL)
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.get('/champions/rotation', (req, res) => {
-	const URL =
-		'https://la1.api.riotgames.com/lol/platform/v3/champion-rotations' +
-		process.env.API_KEY;
+	app.get('/champions/rotation', (req, res) => {
+		const URL =
+			'https://la1.api.riotgames.com/lol/platform/v3/champion-rotations' +
+			process.env.API_KEY;
 
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+		axios
+			.get(URL)
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.get('/champions/:id', (req, res) => {
-	const URL = `http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/${req.params.id}.json`;
+	app.get('/champions/:id', (req, res) => {
+		const URL = `http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion/${req.params.id}.json`;
 
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+		axios
+			.get(URL)
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.get('/summoner/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
+	app.get('/summoner/:name', (req, res) => {
+		const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
 
-	axios
-		.get(URL)
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+		axios
+			.get(URL)
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.get('/matchlist/:name', (req, res) => {
-	const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
+	app.get('/matchlist/:name', (req, res) => {
+		const URL = `https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${req.params.name}${process.env.API_KEY}`;
 
-	axios
-		.get(URL)
-		.then((response) => {
-			accountID = response.data.accountId;
-			matchListURL =
-				'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
-				accountID +
-				process.env.API_KEY;
-			axios
-				.get(matchListURL)
-				.then((response) => {
-					res.send(response.data);
-				})
-				.catch((error) => {
-					res.send(error);
-				});
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+		axios
+			.get(URL)
+			.then((response) => {
+				accountID = response.data.accountId;
+				matchListURL =
+					'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
+					accountID +
+					process.env.API_KEY;
+				axios
+					.get(matchListURL)
+					.then((response) => {
+						res.send(response.data);
+					})
+					.catch((error) => {
+						res.send(error);
+					});
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-//POST HW
-app.post('/provider', (req, res) => {
-	regionImp = req.body.region;
-	URLp = req.body.url;
-	const URLProv =
-		'https://americas.api.riotgames.com/lol/tournament-stub/v4/providers' +
-		process.env.API_KEY;
-	axios
-		.post(URLProv, {
-			region: regionImp,
-			url: URLp,
-		})
-		.then((response) => {
-			providerID = response.data;
-			res.send(`Provider ID: ${providerID}`);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+	//POST HW
+	app.post('/provider', (req, res) => {
+		regionImp = req.body.region;
+		URLp = req.body.url;
+		const URLProv =
+			'https://americas.api.riotgames.com/lol/tournament-stub/v4/providers' +
+			process.env.API_KEY;
+		axios
+			.post(URLProv, {
+				region: regionImp,
+				url: URLp,
+			})
+			.then((response) => {
+				providerID = response.data;
+				res.send(`Provider ID: ${providerID}`);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.post('/tourid', (req, res) => {
-	nameImp = req.body.name;
-	providerImp = req.body.providerId;
-	const URLTour =
-		'https://americas.api.riotgames.com/lol/tournament-stub/v4/tournaments' +
-		process.env.API_KEY;
-	axios
-		.post(URLTour, {
-			name: nameImp,
-			providerId: providerImp,
-		})
-		.then((response) => {
-			tourID = response.data;
-			res.send(`Tournament ID: ${tourID}`);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+	app.post('/tourid', (req, res) => {
+		nameImp = req.body.name;
+		providerImp = req.body.providerId;
+		const URLTour =
+			'https://americas.api.riotgames.com/lol/tournament-stub/v4/tournaments' +
+			process.env.API_KEY;
+		axios
+			.post(URLTour, {
+				name: nameImp,
+				providerId: providerImp,
+			})
+			.then((response) => {
+				tourID = response.data;
+				res.send(`Tournament ID: ${tourID}`);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.post('/codes/:count/:tourID', (req, res) => {
-	sumImp = req.body.allowedSummonerIds;
-	mapImp = req.body.mapType;
-	metaImp = req.body.metadata;
-	pickImp = req.body.pickType;
-	specImp = req.body.spectatorType;
-	teamImp = req.body.teamSize;
-	const URLCodes = `https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?count=${req.params.count}&tournamentId=${req.params.tourID}${process.env.CODES_API_KEY}`;
-	axios
-		.post(URLCodes, {
-			allowedSummonerIds: sumImp,
-			mapType: mapImp,
-			metadata: metaImp,
-			pickType: pickImp,
-			spectatorType: specImp,
-			teamSize: teamImp,
-		})
-		.then((response) => {
-			codesID = response.data;
-			res.send(`Codes: \n ${codesID}`);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+	app.post('/codes/:count/:tourID', (req, res) => {
+		sumImp = req.body.allowedSummonerIds;
+		mapImp = req.body.mapType;
+		metaImp = req.body.metadata;
+		pickImp = req.body.pickType;
+		specImp = req.body.spectatorType;
+		teamImp = req.body.teamSize;
+		const URLCodes = `https://americas.api.riotgames.com/lol/tournament-stub/v4/codes?count=${req.params.count}&tournamentId=${req.params.tourID}${process.env.CODES_API_KEY}`;
+		axios
+			.post(URLCodes, {
+				allowedSummonerIds: sumImp,
+				mapType: mapImp,
+				metadata: metaImp,
+				pickType: pickImp,
+				spectatorType: specImp,
+				teamSize: teamImp,
+			})
+			.then((response) => {
+				codesID = response.data;
+				res.send(`Codes: \n ${codesID}`);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-//POST request from an other API https://www.api.toys/api/index
-app.post('/words', (req, res) => {
-	word = req.body.text;
-	const URLProv = 'https://www.api.toys/api/find_words/' + word;
-	axios
-		.post(URLProv, {
-			text: word,
-		})
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+	//POST request from an other API https://www.api.toys/api/index
+	app.post('/words', (req, res) => {
+		word = req.body.text;
+		const URLProv = 'https://www.api.toys/api/find_words/' + word;
+		axios
+			.post(URLProv, {
+				text: word,
+			})
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
 
-app.post('/gw2', (req, res) => {
-	characterID = req.body.character;
-	const URLProv = 'https://www.api.toys/api/gw2_character/' + characterID;
-	axios
-		.post(URLProv, {
-			character: characterID,
-		})
-		.then((response) => {
-			res.send(response.data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
-});
+	app.post('/gw2', (req, res) => {
+		characterID = req.body.character;
+		const URLProv = 'https://www.api.toys/api/gw2_character/' + characterID;
+		axios
+			.post(URLProv, {
+				character: characterID,
+			})
+			.then((response) => {
+				res.send(response.data);
+			})
+			.catch((error) => {
+				res.send(error);
+			});
+	});
+}
 
 //Listen Server
 app.listen(port, () => {
