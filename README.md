@@ -95,6 +95,8 @@ GET http://localhost:8080/champions
       "title": "the Nine-Tailed Fox",
 ```
 
+---
+
 ### **REQUEST URL**
 
 ```
@@ -169,6 +171,8 @@ GET http://localhost:8080/champions/Annie
         },
 ```
 
+---
+
 ### You can access the weekly rotation of champions with the `/champions/rotation` endpoint
 
 ### **REQUEST URL**
@@ -214,6 +218,8 @@ GET http://localhost:8080/champions/rotation
   "maxNewPlayerLevel": 10
 }
 ```
+
+---
 
 ### With this endpoint `/summoner/{summonerName}` you get info of the summoner searched
 
@@ -294,6 +300,8 @@ GET http://localhost:8080/matchlist/IsaackEz
     },
 ```
 
+---
+
 ## **POSTs**
 
 ### While using a POST you can send the body request with [Postman](https://www.postman.com/) using the format for each request.
@@ -331,6 +339,8 @@ Ej.
 666
 ```
 
+---
+
 ### Returns tournament ID
 
 ### **REQUEST URL**
@@ -361,6 +371,8 @@ POST http://localhost:8080/tourid
 Ej.
 6666
 ```
+
+---
 
 ### Returns tournament codes
 
@@ -425,6 +437,8 @@ Ej.
 ]
 ```
 
+---
+
 ### Return a list of possible English words from a String of nine letters.
 
 ### **REQUEST URL**
@@ -478,6 +492,8 @@ POST http://localhost:8080/words
     "time_taken": 0.031170845031738
 }
 ```
+
+---
 
 ### This request returns a randomly generated Guild Wars 2 Character Profile.
 
