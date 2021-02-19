@@ -420,6 +420,37 @@ app.post('/codes/:count/:tourID', (req, res) => {
 		});
 });
 
+//POST request from an other API https://www.api.toys/api/index
+app.post('/words', (req, res) => {
+	word = req.body.text;
+	const URLProv = 'https://www.api.toys/api/find_words/' + word;
+	axios
+		.post(URLProv, {
+			text: word,
+		})
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
+app.post('/gw2', (req, res) => {
+	characterID = req.body.character;
+	const URLProv = 'https://www.api.toys/api/gw2_character/' + characterID;
+	axios
+		.post(URLProv, {
+			character: characterID,
+		})
+		.then((response) => {
+			res.send(response.data);
+		})
+		.catch((error) => {
+			res.send(error);
+		});
+});
+
 //Listen Server
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
