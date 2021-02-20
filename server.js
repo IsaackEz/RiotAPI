@@ -17,6 +17,7 @@ app.use(morgan('dev'));
 app.engine('htm', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 //GETs
 app.get('/', (req, res) => {
@@ -132,17 +133,14 @@ app.get('/riot', (req, res) => {
 								});
 							})
 							.catch((error) => {
-								res.render('error.htm');
 								res.send(error);
 							});
 					})
 					.catch((error) => {
-						res.render('error.htm');
 						res.send(error);
 					});
 			})
 			.catch((error) => {
-				res.render('error.htm');
 				res.send(error);
 			});
 	}
@@ -379,7 +377,7 @@ function homework() {
 				res.send(`Provider ID: ${providerID}`);
 			})
 			.catch((error) => {
-				res.send(error);
+				e;
 			});
 	});
 
@@ -399,7 +397,7 @@ function homework() {
 				res.send(`Tournament ID: ${tourID}`);
 			})
 			.catch((error) => {
-				res.send(error);
+				e;
 			});
 	});
 
@@ -425,7 +423,7 @@ function homework() {
 				res.send(`Codes: \n ${codesID}`);
 			})
 			.catch((error) => {
-				res.send(error);
+				e;
 			});
 	});
 
@@ -441,7 +439,7 @@ function homework() {
 				res.send(response.data);
 			})
 			.catch((error) => {
-				res.send(error);
+				e;
 			});
 	});
 
@@ -456,7 +454,7 @@ function homework() {
 				res.send(response.data);
 			})
 			.catch((error) => {
-				res.send(error);
+				res.send('Something went wrong');
 			});
 	});
 }
