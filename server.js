@@ -133,15 +133,15 @@ app.get('/riot', (req, res) => {
 								});
 							})
 							.catch((error) => {
-								res.send(error);
+								res.send('error');
 							});
 					})
 					.catch((error) => {
-						res.send(error);
+						res.send('error');
 					});
 			})
 			.catch((error) => {
-				res.send(error);
+				res.send('error');
 			});
 	}
 });
@@ -377,7 +377,7 @@ function homework() {
 				res.send(`Provider ID: ${providerID}`);
 			})
 			.catch((error) => {
-				e;
+				res.send('Something went wrong');
 			});
 	});
 
@@ -397,7 +397,7 @@ function homework() {
 				res.send(`Tournament ID: ${tourID}`);
 			})
 			.catch((error) => {
-				e;
+				res.send('Something went wrong');
 			});
 	});
 
@@ -423,7 +423,7 @@ function homework() {
 				res.send(`Codes: \n ${codesID}`);
 			})
 			.catch((error) => {
-				e;
+				res.send('Something went wrong');
 			});
 	});
 
@@ -439,7 +439,7 @@ function homework() {
 				res.send(response.data);
 			})
 			.catch((error) => {
-				e;
+				res.send('Something went wrong');
 			});
 	});
 
