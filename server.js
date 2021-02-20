@@ -133,15 +133,15 @@ app.get('/riot', (req, res) => {
 								});
 							})
 							.catch((error) => {
-								res.send('error');
+								console.log(error);
 							});
 					})
 					.catch((error) => {
-						res.send('error');
+						console.log(error);
 					});
 			})
 			.catch((error) => {
-				res.send('error');
+				console.log(error);
 			});
 	}
 });
