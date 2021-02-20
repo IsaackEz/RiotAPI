@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/css/style.css" />
 		<title>Riot API</title>
 	</head>
 
@@ -46,9 +46,9 @@
 					<body>
 						<th colspan="9"><%= `Duration: ${min}:${sec}` %></th></th></tr>
 						<tr>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[0]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
-							<td><%= summonerName[0] %> </td>
-							<td><%= kills[0] + '/' + deaths[0] + '/' + assists[0]%> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[0]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
+							<td class="sum-name-left"><%= summonerName[0] %> </td>
+							<td><span class="kill-color"><%= kills[0]%></span> / <span class="death-color"><%= deaths[0] %></span> / <span class="assist-color"><%= assists[0] %></span> </td>
 							<td>
 								<div>
 									<img class="item" src="<%= URLitem+item0[0]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
@@ -76,14 +76,14 @@
 									<img class="item" src="<%= URLitem+item6[5]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
 								</div>
 							</td>
-							<td><%= kills[5] + '/' + deaths[5] + '/' + assists[5]%></td>
-							<td><%= summonerName[5] %> </td>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[5]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>													
+							<td><span class="kill-color"><%= kills[5]%></span> / <span class="death-color"><%= deaths[5] %></span> / <span class="assist-color"><%= assists[5] %></span> </td>
+							<td class="sum-name-right"><%= summonerName[5] %> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[5]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>													
 						</tr>
 						<tr>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[1]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
-							<td><%= summonerName[1] %> </td>
-							<td><%= kills[1] + '/' + deaths[1] + '/' + assists[1]%></td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[1]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
+							<td class="sum-name-left"><%= summonerName[1] %> </td>
+							<td><span class="kill-color"><%= kills[1]%></span> / <span class="death-color"><%= deaths[1] %></span> / <span class="assist-color"><%= assists[1] %></span> </td>
 							<td>
 								<div>
 									<img class="item" src="<%= URLitem+item0[1]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
@@ -111,14 +111,14 @@
 									<img class="item" src="<%= URLitem+item6[6]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
 								</div>
 							</td>
-							<td><%= kills[6] + '/' + deaths[6] + '/' + assists[6]%></td>
-							<td><%= summonerName[6] %> </td>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[6]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
+							<td><span class="kill-color"><%= kills[6]%></span> / <span class="death-color"><%= deaths[6] %></span> / <span class="assist-color"><%= assists[6] %></span> </td>
+							<td class="sum-name-right"><%= summonerName[6] %> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[6]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
 						</tr>
 						<tr>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[2]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
-							<td><%= summonerName[2] %> </td>
-							<td><%= kills[2] + '/' + deaths[2] + '/' + assists[2]%></td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[2]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
+							<td class="sum-name-left"><%= summonerName[2] %> </td>
+							<td><span class="kill-color"><%= kills[2]%></span> / <span class="death-color"><%= deaths[2] %></span> / <span class="assist-color"><%= assists[2] %></span> </td>
 							<td>
 								<div>
 									<img class="item" src="<%= URLitem+item0[2]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
@@ -146,14 +146,14 @@
 									<img class="item" src="<%= URLitem+item6[7]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
 								</div>
 							</td>
-							<td><%= kills[7] + '/' + deaths[7] + '/' + assists[7]%></td>
-							<td><%= summonerName[7] %> </td>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[7]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
+							<td><span class="kill-color"><%= kills[7]%></span> / <span class="death-color"><%= deaths[7] %></span> / <span class="assist-color"><%= assists[7] %></span> </td>
+							<td class="sum-name-right"><%= summonerName[7] %> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[7]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
 						</tr>
 						<tr>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[3]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
-							<td><%= summonerName[3] %> </td>
-							<td><%=  kills[3] + '/' + deaths[3] + '/' + assists[3]%></td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[3]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
+							<td class="sum-name-left"><%= summonerName[3] %> </td>
+							<td><span class="kill-color"><%= kills[3]%></span> / <span class="death-color"><%= deaths[3] %></span> / <span class="assist-color"><%= assists[3] %></span> </td>
 							<td>
 								<div>
 									<img class="item" src="<%= URLitem+item0[3]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
@@ -181,14 +181,14 @@
 									<img class="item" src="<%= URLitem+item6[8]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
 								</div>
 							</td>
-							<td><%= kills[8] + '/' + deaths[8] + '/' + assists[8]%></td>
-							<td><%= summonerName[8] %> </td>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[8]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
+							<td><span class="kill-color"><%= kills[8]%></span> / <span class="death-color"><%= deaths[8] %></span> / <span class="assist-color"><%= assists[8] %></span> </td>
+							<td class="sum-name-right"><%= summonerName[8] %> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[8]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
 						</tr>
 						<tr>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[4]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
-							<td><%= summonerName[4] %> </td>
-							<td><%= kills[4] + '/' + deaths[4] + '/' + assists[4]%></td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[4]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>
+							<td class="sum-name-left"><%= summonerName[4] %> </td>
+							<td><span class="kill-color"><%= kills[4]%></span> / <span class="death-color"><%= deaths[4] %></span> / <span class="assist-color"><%= assists[4] %></span> </td>
 							<td>
 								<div>
 									<img class="item" src="<%= URLitem+item0[4]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
@@ -216,9 +216,9 @@
 									<img class="item" src="<%= URLitem+item6[9]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/>
 								</div>
 							</td>
-							<td><%= kills[9] + '/' + deaths[9] + '/' + assists[9]%></td>
-							<td><%= summonerName[9] %> </td>
-							<td><img class="prof-icon" src="<%= URLsi+profIcon[9]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
+							<td><span class="kill-color"><%= kills[9]%></span> / <span class="death-color"><%= deaths[9] %></span> / <span class="assist-color"><%= assists[9] %></span> </td>
+							<td class="sum-name-right"><%= summonerName[9] %> </td>
+							<td><img class="champ-icon" src="<%= champIconURL+champName[9]+'.png' %>"onerror="this.onerror=null; this.src='/images/default.png'"/> </td>						
 						</tr>
 					</body>
 				</table>

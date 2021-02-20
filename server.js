@@ -3,8 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const axios = require('axios');
 const path = require('path');
+const champ = require('./champions.json');
 require('dotenv').config();
-
 //Using packages
 const app = express();
 
@@ -30,7 +30,7 @@ app.get('/riot', (req, res) => {
 	let nameID = req.query.search;
 	let partID = [];
 	let sumHist = [];
-	let iconHist = [];
+	let iconChamp = [];
 	let partKills = [];
 	let partDeaths = [];
 	let partAssists = [];
@@ -41,6 +41,8 @@ app.get('/riot', (req, res) => {
 	let partItem4 = [];
 	let partItem5 = [];
 	let partItem6 = [];
+	let champID = [];
+	let chName = [];
 
 	const URLsi =
 		'http://ddragon.leagueoflegends.com/cdn/11.3.1/img/profileicon/';
@@ -49,15 +51,20 @@ app.get('/riot', (req, res) => {
 		'https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' +
 		nameID +
 		process.env.API_KEY;
+	const URLchampIcon =
+		'http://ddragon.leagueoflegends.com/cdn/11.4.1/img/champion/';
+	const URLchamp =
+		'http://ddragon.leagueoflegends.com/cdn/11.4.1/data/en_US/champion.json';
 	if (nameID == undefined || nameID == '') {
 		res.render('index.htm');
 	} else {
 		axios
-			.get(URLs)
+			.all([axios.get(URLs), axios.get(URLchamp)])
 			.then((response) => {
-				sumIcon = response.data.profileIconId;
-				sumLevel = response.data.summonerLevel;
-				accID = response.data.accountId;
+				sumIcon = response[0].data.profileIconId;
+				sumLevel = response[0].data.summonerLevel;
+				accID = response[0].data.accountId;
+
 				URLListMatch =
 					'https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/' +
 					accID +
@@ -83,7 +90,6 @@ app.get('/riot', (req, res) => {
 								for (let i = 0; i < partIdent.length; i++) {
 									partID.push(partIdent[i].participantId);
 									sumHist.push(partIdent[i].player.summonerName);
-									iconHist.push(partIdent[i].player.profileIcon);
 								}
 								part = response.data.participants;
 								for (let i = 0; i < part.length; i++) {
@@ -97,6 +103,15 @@ app.get('/riot', (req, res) => {
 									partItem4.push(part[i].stats.item4);
 									partItem5.push(part[i].stats.item5);
 									partItem6.push(part[i].stats.item6);
+									champID.push(part[i].championId);
+								}
+								for (let j = 0; j < champID.length; j++) {
+									for (let i = 0; i < champ.champions.length; i++) {
+										if (champID[j] == champ.champions[i].key) {
+											chName.push(champ.champions[i].id);
+											break;
+										}
+									}
 								}
 								URLmap =
 									'http://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map' +
@@ -104,6 +119,7 @@ app.get('/riot', (req, res) => {
 									'.png';
 								URLitem =
 									'http://ddragon.leagueoflegends.com/cdn/11.4.1/img/item/';
+
 								res.render('summoner.htm', {
 									icon: URLsi,
 									iconExt: URLext,
@@ -118,7 +134,7 @@ app.get('/riot', (req, res) => {
 									sec: seconds,
 									participantID: partID,
 									summonerName: sumHist,
-									profIcon: iconHist,
+									champIcon: iconChamp,
 									URLsi: URLsi,
 									kills: partKills,
 									deaths: partDeaths,
@@ -130,6 +146,8 @@ app.get('/riot', (req, res) => {
 									item4: partItem4,
 									item5: partItem5,
 									item6: partItem6,
+									champIconURL: URLchampIcon,
+									champName: chName,
 								});
 							})
 							.catch((error) => {
